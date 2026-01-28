@@ -16,17 +16,17 @@ model User {
   lname    String
 }
 
-// প্রোডাক্ট মডেল (Product Management এর জন্য)
+
 model Product {
   id             Int      @id @default(autoincrement())
   name           String
   sku            String   @unique
   price          Float
   stock_quantity Int
-  sales          Sale[]   // সেলস এর সাথে সম্পর্ক
+  sales          Sale[]   
 }
 
-// সেলস মডেল (Sales & Stock Management এর জন্য)
+
 model Sale {
   id         Int      @id @default(autoincrement())
   productId  Int
@@ -35,9 +35,4 @@ model Sale {
   
   totalPrice Float
   saleDate   DateTime @default(now())
-}
-model Product {
-  id             Int    @id @default(autoincrement())
-  // ... আপনার আগের ফিল্ডগুলো
-  sales          Sale[]
 }

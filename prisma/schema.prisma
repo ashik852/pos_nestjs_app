@@ -36,8 +36,3 @@ model Sale {
   totalPrice Float
   saleDate   DateTime @default(now())
 }
-model Product {
-  id             Int    @id @default(autoincrement())
-  // ... আপনার আগের ফিল্ডগুলো
-  sales          Sale[]
-}

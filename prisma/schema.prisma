@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// for user model (Auth )
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String
+  fname    String
+  lname    String
+}
+
+// প্রোডাক্ট মডেল (Product Management এর জন্য)
+model Product {
+  id             Int      @id @default(autoincrement())
+  name           String
+  sku            String   @unique
+  price          Float
+  stock_quantity Int
+  sales          Sale[]   // সেলস এর সাথে সম্পর্ক
+}
+
+// সেলস মডেল (Sales & Stock Management এর জন্য)
+model Sale {
+  id         Int      @id @default(autoincrement())
+  productId  Int
+  product    Product  @relation(fields: [productId], references: [id])
+  quantity   Int
+  
+  totalPrice Float
+  saleDate   DateTime @default(now())
+}
+model Product {
+  id             Int    @id @default(autoincrement())
+  // ... আপনার আগের ফিল্ডগুলো
+  sales          Sale[]
+}
